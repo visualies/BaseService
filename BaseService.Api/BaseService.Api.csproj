@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Configuration\readme.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Configuration\readme.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
@@ -19,10 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BaseService.Data\BaseService.Data.csproj" />
     <ProjectReference Include="..\BaseService.Services\BaseService.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Logs\" />
   </ItemGroup>
 
 
