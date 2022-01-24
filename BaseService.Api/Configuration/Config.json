@@ -1,0 +1,31 @@
+﻿{
+  "Database": {
+    "Host": "192.168.178.4",
+    "User": "postgres",
+    "Password": "dodopower",
+    "Database": "testing",
+    "Port": 8088
+  },
+
+  "RabbitMQ": {
+    "Host": "192.168.178.4",
+    "Username": "guest",
+    "Password": "guest",
+    "Port": 5672
+  },
+
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      {
+        "Name": "Console"
+      },
+      {
+        "Name": "File",
+        "Args": { "path": "Logs/log.txt" }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ]
+  }
+}

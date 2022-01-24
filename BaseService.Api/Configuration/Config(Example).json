@@ -1,0 +1,17 @@
+﻿{
+  "Database": {
+    "Host": "localhost",
+    "User": "postgres",
+    "Password": "password",
+    "Database": "database",
+    "Port": 0
+  },
+
+  "RabbitMQ":
+  {
+    "Host": "localhost",
+    "Username": "guest",
+    "Password": "guest",
+    "Port": 0
+  }
+}
