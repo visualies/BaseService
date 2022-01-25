@@ -24,6 +24,7 @@ namespace BaseService.Api
         {
             services.AddUnitOfWork(_configuration.GetSection("Database").Get<DatabaseConfig>());
             services.AddRabbitMQ(_configuration.GetSection("RabbitMQ").Get<RabbitMqConfig>());
+            services.AddSingleton<ISnowflakeService, SnowflakeService>();
             services.AddScoped<IExampleService, ExampleService>();
             services.AddRouteConstraints();
             services.AddControllers();

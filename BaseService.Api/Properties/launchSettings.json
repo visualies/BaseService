@@ -20,7 +20,7 @@
     "BaseService": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "example/1",
+      "launchUrl": "example/369190057732472835",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

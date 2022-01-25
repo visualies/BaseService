@@ -30,7 +30,7 @@ namespace BaseService.Data.Repositories
 
         public async Task CreateAsync(Example entity)
         {
-            const string sql = @"INSERT INTO example_table (name, description) Values (@Name, @Description)";
+            const string sql = @"INSERT INTO example_table (id, name, description) Values (@Id, @Name, @Description)";
 
             await ExecuteAsync(sql, entity);
         }
@@ -61,7 +61,7 @@ namespace BaseService.Data.Repositories
         public void EnsureCreated()
         {
             const string sql = @"CREATE TABLE IF NOT EXISTS example_table (
-                                    id              varchar(50) NOT NULL,
+                                    id              varchar(18) NOT NULL,
                                     name            varchar(50) NOT NULL,
                                     description     varchar(50) NOT NULL,
                                     CONSTRAINT PK__example_table PRIMARY KEY (id)
