@@ -10,34 +10,41 @@ namespace BaseService.Services.Services
 {
     public class ExampleService : IExampleService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _context;
         private readonly ISnowflakeService _snowflakeService;
 
         public ExampleService(IUnitOfWork unitOfWork, ISnowflakeService snowflakeService)
         {
-            _unitOfWork = unitOfWork;
+            _context = unitOfWork;
             _snowflakeService = snowflakeService;
         }
+
         public async Task<Example> GetAsync(ulong key)
         {
-            return await _unitOfWork.ExampleRepository.GetAsync(key);
+            return await _context.ExampleRepository.GetAsync(key);
         }
 
         public async Task CreateAsync(Example entity)
         {
             entity.Id = _snowflakeService.GenerateId();
 
-            await _unitOfWork.ExampleRepository.CreateAsync(entity);
+            await _context.ExampleRepository.CreateAsync(entity);
+
+            _context.Commit();
         }
 
         public async Task UpdateAsync(Example entity)
         {
-            await _unitOfWork.ExampleRepository.UpdateAsync(entity);
+            await _context.ExampleRepository.UpdateAsync(entity);
+
+            _context.Commit();
         }
 
         public async Task DeleteAsync(ulong key)
         {
-            await _unitOfWork.ExampleRepository.DeleteAsync(key);
+            await _context.ExampleRepository.DeleteAsync(key);
+
+            _context.Commit();
         }
 
     }
