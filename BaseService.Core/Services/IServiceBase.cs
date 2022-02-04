@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace BaseService.Core.Services
 {
-    public interface IServiceBase<TEntity, TKey> where TEntity : class
+    public interface IServiceBase<TEntity, TParams, TKey> where TEntity : class
     {
+        Task<IEnumerable<TEntity>> FindAsync(TParams @params);
         Task<TEntity> GetAsync(TKey key);
-        Task CreateAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
+        Task CreateAsync(TParams @params);
+        Task UpdateAsync(TKey key, TParams @params);
         Task DeleteAsync(TKey key);
     }
 }

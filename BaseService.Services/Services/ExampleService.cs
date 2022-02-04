@@ -1,5 +1,6 @@
 ﻿using BaseService.Core;
 using BaseService.Core.Entities;
+using BaseService.Core.Parameters;
 using BaseService.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -19,23 +20,43 @@ namespace BaseService.Services.Services
             _snowflakeService = snowflakeService;
         }
 
+        public async Task<IEnumerable<Example>> FindAsync(ExampleParameters @params)
+        {
+            return await _context.ExampleRepository.FindAsync(@params);
+        }
+
         public async Task<Example> GetAsync(ulong key)
         {
             return await _context.ExampleRepository.GetAsync(key);
         }
 
-        public async Task CreateAsync(Example entity)
+        public async Task CreateAsync(ExampleParameters @params)
         {
-            entity.Id = _snowflakeService.GenerateId();
+            var example = new Example()
+            {
+                Id = _snowflakeService.GenerateId(),
+                Name = @params.Name,
+                Description = @params.Description,
+            };
 
-            await _context.ExampleRepository.CreateAsync(entity);
-
+            await _context.ExampleRepository.CreateAsync(example);
             _context.Commit();
         }
 
-        public async Task UpdateAsync(Example entity)
+        public async Task UpdateAsync(ulong key, ExampleParameters @params)
         {
-            await _context.ExampleRepository.UpdateAsync(entity);
+            var example = await _context.ExampleRepository.GetAsync(key);
+
+            if (@params.Name != null)
+            {
+                example.Name = @params.Name;
+            }
+            if (@params.Description != null)
+            {
+                example.Description = @params.Description;
+            }
+
+            await _context.ExampleRepository.UpdateAsync(example);
 
             _context.Commit();
         }
@@ -46,6 +67,5 @@ namespace BaseService.Services.Services
 
             _context.Commit();
         }
-
     }
 }

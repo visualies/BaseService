@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BaseService.Core.Entities;
+using BaseService.Core.Parameters;
 using BaseService.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,29 +17,34 @@ namespace BaseService.Api.Controllers
         }
 
         [HttpGet()]
+        [Route("/example/")]
+        public async Task<IActionResult> FindAsync(ExampleParameters @params)
+        {
+            var examples = await _exampleService.FindAsync(@params);
+            return Ok(examples);
+        }
+
+        [HttpGet()]
         [Route("/example/{id:ulong}")]
         public async Task<IActionResult> GetAsync(ulong id)
         {
             var example = await _exampleService.GetAsync(id);
-            System.Console.WriteLine(example.Id);
             return Ok(example);
         }
 
         [HttpPost()]
         [Route("/example/")]
-        public async Task<IActionResult> PostAsync(Example example)
+        public async Task<IActionResult> PostAsync(ExampleParameters @params)
         {
-            await _exampleService.CreateAsync(example);
-
+            await _exampleService.CreateAsync(@params);
             return Ok();
         }
 
         [HttpPatch()]
-        [Route("/example/")]
-        public async Task<IActionResult> PatchAsync(Example example)
+        [Route("/example/{id:ulong}")]
+        public async Task<IActionResult> PatchAsync(ulong id, ExampleParameters @params)
         {
-            await _exampleService.UpdateAsync(example);
-
+            await _exampleService.UpdateAsync(id, @params);
             return Ok();
         }
 
@@ -47,7 +53,6 @@ namespace BaseService.Api.Controllers
         public async Task<IActionResult> DeleteAsync(ulong id)
         {
             await _exampleService.DeleteAsync(id);
-
             return Ok();
         }
     }
