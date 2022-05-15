@@ -18,9 +18,9 @@ namespace BaseService.Api.Controllers
 
         [HttpGet()]
         [Route("/example/")]
-        public async Task<IActionResult> FindAsync(ExampleParameters @params)
+        public async Task<IActionResult> FindAsync(ExampleParameters parameters)
         {
-            var examples = await _exampleService.FindAsync(@params);
+            var examples = await _exampleService.FindAsync(parameters);
             return Ok(examples);
         }
 
@@ -34,17 +34,17 @@ namespace BaseService.Api.Controllers
 
         [HttpPost()]
         [Route("/example/")]
-        public async Task<IActionResult> PostAsync(ExampleParameters @params)
+        public async Task<IActionResult> PostAsync(ExampleParameters parameters)
         {
-            await _exampleService.CreateAsync(@params);
+            await _exampleService.CreateAsync(parameters);
             return Ok();
         }
 
         [HttpPatch()]
         [Route("/example/{id:ulong}")]
-        public async Task<IActionResult> PatchAsync(ulong id, ExampleParameters @params)
+        public async Task<IActionResult> PatchAsync(ulong id, ExampleParameters parameters)
         {
-            await _exampleService.UpdateAsync(id, @params);
+            await _exampleService.UpdateAsync(id, parameters);
             return Ok();
         }
 

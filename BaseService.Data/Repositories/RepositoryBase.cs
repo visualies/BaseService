@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -14,17 +15,19 @@ namespace BaseService.Data.Repositories
 
         protected RepositoryBase(IDbTransaction transaction)
         {
-            this._transaction = transaction;
+            _transaction = transaction;
         }
 
         protected async Task<IEnumerable<T>> QueryFilteredAsync<T>(string table, object param)
         {
-            var sql = $"SELECT * FROM {table} WHERE ";
+            var sql = $"SELECT * FROM {table}";
             var statements = new List<string>();
 
-            foreach (PropertyInfo prop in param.GetType().GetProperties())
+            var props = param.GetType().GetProperties().Where(a => a.GetValue(param) != null);
+            if (props.Any()) sql += " WHERE ";
+
+            foreach (PropertyInfo prop in props)
             {
-                if (prop.GetValue(param) == null) continue;
                 statements.Add($"{prop.Name} = @{prop.Name}");
             }
 

@@ -7,7 +7,7 @@ namespace BaseService.Core.Repositories
 {
     public interface IRepositoryBase<TEntity, TParams, TKey> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> FindAsync(TParams @params);
+        Task<IEnumerable<TEntity>> FindAsync(TParams parameters);
         Task<TEntity> GetAsync(TKey key);
         Task CreateAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);

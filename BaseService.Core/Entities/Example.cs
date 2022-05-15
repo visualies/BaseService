@@ -2,8 +2,8 @@
 {
     public class Example
     {
-        public ulong Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public ulong id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
     }
 }

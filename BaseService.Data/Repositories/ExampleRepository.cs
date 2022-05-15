@@ -1,4 +1,5 @@
 ﻿using BaseService.Core.Entities;
+using BaseService.Core.Parameters;
 using BaseService.Core.Repositories;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +19,11 @@ namespace BaseService.Data.Repositories
             const string sql = "SELECT * FROM example_table";
 
             return await QueryAsync<Example>(sql);
+        }
+
+        public async Task<IEnumerable<Example>> FindAsync(ExampleParameters parameters)
+        {
+            return await QueryFilteredAsync<Example>("example_table", parameters);
         }
 
         public async Task<Example> GetAsync(ulong key)

@@ -20,9 +20,9 @@ namespace BaseService.Services.Services
             _snowflakeService = snowflakeService;
         }
 
-        public async Task<IEnumerable<Example>> FindAsync(ExampleParameters @params)
+        public async Task<IEnumerable<Example>> FindAsync(ExampleParameters parameters)
         {
-            return await _context.ExampleRepository.FindAsync(@params);
+            return await _context.ExampleRepository.FindAsync(parameters);
         }
 
         public async Task<Example> GetAsync(ulong key)
@@ -30,30 +30,30 @@ namespace BaseService.Services.Services
             return await _context.ExampleRepository.GetAsync(key);
         }
 
-        public async Task CreateAsync(ExampleParameters @params)
+        public async Task CreateAsync(ExampleParameters parameters)
         {
             var example = new Example()
             {
-                Id = _snowflakeService.GenerateId(),
-                Name = @params.Name,
-                Description = @params.Description,
+                id = _snowflakeService.GenerateId(),
+                name = parameters.name,
+                description = parameters.description,
             };
 
             await _context.ExampleRepository.CreateAsync(example);
             _context.Commit();
         }
 
-        public async Task UpdateAsync(ulong key, ExampleParameters @params)
+        public async Task UpdateAsync(ulong key, ExampleParameters parameters)
         {
             var example = await _context.ExampleRepository.GetAsync(key);
 
-            if (@params.Name != null)
+            if (parameters.name != null)
             {
-                example.Name = @params.Name;
+                example.name = parameters.name;
             }
-            if (@params.Description != null)
+            if (parameters.description != null)
             {
-                example.Description = @params.Description;
+                example.description = parameters.description;
             }
 
             await _context.ExampleRepository.UpdateAsync(example);
